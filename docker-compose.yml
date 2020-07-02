@@ -1,0 +1,24 @@
+version: '2'
+services:
+  adminer:
+    image: clue/adminer
+    environment:
+      #VIRTUAL_HOST: adminer.server.cz, www.adminer.server.cz
+      HSTS: 'off'
+      HTTPS_METHOD: 'redirect'
+    networks:
+      - percona
+      - proxy
+    ports:
+      - "8010:80"
+    expose:
+      - 80
+    restart: always
+
+networks:
+  percona:
+    external:
+      name: percona
+  proxy:
+    external:
+      name: nginx-proxy
